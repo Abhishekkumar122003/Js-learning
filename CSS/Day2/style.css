@@ -1,0 +1,26 @@
+*{  
+    padding: 0%;
+    margin: 0%;
+    background-color: #000000;
+}
+h1{
+    /* height: 200vh;
+    width: 200vh; */
+    background-color: #fb008a;
+    position: relative;
+    font-style: italic;
+    left: 20px;
+    right: 100px;
+    top: 50px; 
+    bottom: 20px;
+}
+nav{
+    background-color: #2aa2a2;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    bottom: 20px;
+    color: aliceblue;
+    
+
+}

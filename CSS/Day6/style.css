@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'gilroy';
+}
+.box{
+    height: 400px;
+    width: 400px;
+    background-color: bisque;
+    font-size: 25px;
+}
+/* max-width ka mtlb jb tk max-width tk kee eqaul nhi aai ga tbtk uske unddr ka code nhi chle ga */
+/* @media screen  and (max-width:600px) {  
+    .box{
+        height: 300px;
+        width: 300px;
+        background-color: pink;
+        font-size: 12px;
+    } 
+ } */
+/* min-width ka mtlb hai jb tk min-width kai equal nhi aai tb tk uske under ka  code run krrega */
+@media screen and (min-width:600px) {
+    .box{
+         height: 300px;
+        width: 300px;
+        background-color: rgb(77, 150, 207);
+        font-size: 12px;
+    }
+} 

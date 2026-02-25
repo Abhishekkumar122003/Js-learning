@@ -1,0 +1,35 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: aliceblue;
+}
+body{
+    background-color: black;
+}
+
+.container{
+    
+    display: grid;
+    background-color: rgba(65, 96, 183, 0.619);
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px;
+    gap: 10px;
+    height: 400px;
+    width: 400px;
+}
+
+.box1{
+    background-color: red;
+}
+.box2{
+    background-color: rgb(169, 183, 78);
+}
+.box3{
+    background-color: rgb(177, 15, 129);
+}
+.box4{
+    background-color: rgb(60, 167, 234);
+}

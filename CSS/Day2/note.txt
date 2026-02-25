@@ -1,0 +1,10 @@
+
+positioning in CSS 
+how to change the position  of the element in webpage
+we do this by the hel of position method 
+
+1. static
+2. relative
+3. fixed
+4. sticky
+5. absolute
