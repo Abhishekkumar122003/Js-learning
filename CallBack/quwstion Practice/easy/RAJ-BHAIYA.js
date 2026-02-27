@@ -1,22 +1,3 @@
-// function customFilter(arr, callback){
-
-// }
-// function hello(ms){
-//     setTimeout(()=>{
-//     console.log("hi");
-//     },ms)
-// }
-
-// hello(3000)
-
-// function headler() {
-//     console.log("handler direct passing")
-// }
-
-
-
-
-
 const orderData = {
     orderId: 56445,
     food: ["biryani", " cold drinks"],
@@ -78,6 +59,3 @@ console.log("Starting order process!");
 //     });
 // });
 
-placeOrder(orderData, ()=>{
-    prepare()
-})
