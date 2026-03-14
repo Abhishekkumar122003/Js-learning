@@ -5,6 +5,12 @@ const promisesone = new Promise(function(resolve, reject){
         // console.log("hi this is promises")
         resolve()
     },1000)
+    const a = []
+    for (let i = 0; i < 100000; ++i) {
+     a.push(i)
+    }
+
+    resolve()
 })
 
 promisesone.then(function(){
