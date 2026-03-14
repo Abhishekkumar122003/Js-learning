@@ -1,0 +1,3 @@
+there are multiple library present which helps us to create our own command line interface library. 
+One of is
+1. Commander.js library in nodejs
