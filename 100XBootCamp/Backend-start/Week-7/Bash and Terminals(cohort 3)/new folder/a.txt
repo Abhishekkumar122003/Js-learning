@@ -1,0 +1,5 @@
+This "vi" is advanced command used by senior developer 
+it lets you to edit the file directly from the terminal 
+it quit hard for the first time 
+but stick to it, it's what make you different from others
+

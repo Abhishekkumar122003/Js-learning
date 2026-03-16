@@ -1,0 +1,16 @@
+Bash command
+1. pwd-> stand for present working directory
+2. cd -> stand for current directory , used for navigate between the directory (cd "directory-name" for get into that directory ) (cd .. -> use to move into previous directory)
+3. ls-> used to show  all the file or directory of the working directory.
+4. mkdir-> stand for make directory, used to create the directory
+5. touch-> is used to create file 
+6. cat-> is used to see the contant of a file.
+
+--------Advance command---------------------
+7. vi->stand for (vim), and is used to edit content of a file directly from a terminal.
+    -> to get out of the vim editor by saving the changes do -> esc:wq!
+    -> to get out of the vim editor without saving the changes do -> esc:q!
+
+
+8. mv-> stand for move foleder to the new foleder
+9. cp-> it's stand for copy the file or directly to the new directory
