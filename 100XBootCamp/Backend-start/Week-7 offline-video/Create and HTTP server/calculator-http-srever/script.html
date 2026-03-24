@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+  
+</head>
+<body>
+    <input type="text" class="first" placeholder="Enter first Number">
+    <input type="text" class="sec" placeholder="Enter second Number">
+
+    <button onclick="add()">Sum</button>
+    <button onclick="sub()">Sub</button>
+    <button onclick="div()">Div</button>
+    <button onclick="mul()">Mul</button>
+
+    <div class="response"></div>
+    
+
+
+      <script>
+        async function add(){
+            const a = document.querySelector('.first').value;
+            const b = document.querySelector('.sec').value;
+
+            const res = await fetch("http://localhost:3000/sum/" + a +"/" + b);
+            const json = await res.json();
+
+            document.querySelector('.response').innerHTML = json.ans
+        }
+        async function sub(){
+            const a = document.querySelector('.first').value;
+            const b = document.querySelector('.sec').value;
+
+            const res = await fetch("http://localhost:3000/sub/" + a +"/" + b);
+            const json = await res.json();
+
+            document.querySelector('.response').innerHTML = json.ans
+        }
+        async function mul(){
+            const a = document.querySelector('.first').value;
+            const b = document.querySelector('.sec').value;
+
+            const res = await fetch("http://localhost:3000/mul/" + a +"/" + b);
+            const json = await res.json();
+
+            document.querySelector('.response').innerHTML = json.ans
+        }
+        async function div(){
+            const a = document.querySelector('.first').value;
+            const b = document.querySelector('.sec').value;
+
+            const res = await fetch("http://localhost:3000/div/" + a +"/" + b);
+            const json = await res.json();
+
+            document.querySelector('.response').innerHTML = json.ans
+        }
+       
+    </script>
+</body>
+</html>
