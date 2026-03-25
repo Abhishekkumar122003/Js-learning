@@ -2,10 +2,11 @@
 
 // async function always return a promise
 
-// async function greet(){
-//     return "rohit";
-// }
-
+async function greet(){
+    return "rohit"; 
+}
+const response =  await greet();
+console.log(response)
 // const response = await greet(); // without await  it give promise {rohit}
 // console.log(response)
 
@@ -29,9 +30,9 @@ async function github() {
     console.log(Data);
 }
 
-github();
+// github();
 
-console.log("Now ab yee line no: 33 hello world phle print hoga 👌")
+// console.log("Now ab yee line no: 33 hello world phle print hoga 👌")
 
 
 // kbhi kbhi hume jo task parallel exicute krna hota hai example mailo , ki tum koi data 
