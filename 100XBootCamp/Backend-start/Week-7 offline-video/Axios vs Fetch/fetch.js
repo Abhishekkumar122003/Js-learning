@@ -1,8 +1,7 @@
 const { response } = require("express");
 
 ` Write a code to fetch the data from 
-    "http://sum-server.100xdevs.com/todos"
-
+    "https://api.github.com/users"
 `
 console.log("hi there")
 function main(){

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+    </style>
+    
+</head>
+<body>
+        <div class="div" style="display: flex; justify-content: space-between; padding: 0 100px;">
+         
+            <div class="notes">
+               Loading ...
+            </div> 
+            <div>
+            <input type="text" class="input"/>
+            <button onclick="addTodo()">create your notes</button>
+                </div>
+        </div>    
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"></script>
+
+        <script>
+            async function addTodo(){
+                await axios.post("http://localhost:3000/notes", {
+                    note: document.querySelector('.input').value,
+                })
+
+                const newNotes = document.createElement("div");
+                newNotes.innerHTML = document.querySelector('.input').value;
+                newNotes.setAttribute("style","border:2px solid black; padding: 10px;")
+                document.querySelector('.notes').appendChild(newNotes);
+                document.querySelector('.input').value=" ";
+            }
+            
+            async function getTodos(){
+                //fetch method
+                // const response = await fetch("http://localhost:3000/notes");
+                // const json = await response.json();
+                // console.log(json.notes);
+
+            //axios method
+            const response = await axios.get("http://localhost:3000/notes");
+            console.log(response.data.notes);
+
+            document.querySelector('.notes').innerHTML="";
+
+            const notes = response.data.notes;
+
+            for(let i=0; i<notes.length; i++){
+                const noteNote = notes[i];
+                const noteNOTES = document.createElement("div");
+                noteNOTES.innerHTML=noteNote;
+
+                noteNOTES.setAttribute("style","border:2px solid white; width:300px; margin-bottom:7px; padding: 10px;")
+                document.querySelector('.notes').appendChild(noteNOTES);
+                
+            }
+            };
+            getTodos();
+        </script>
+        
+</body>
+</html>
