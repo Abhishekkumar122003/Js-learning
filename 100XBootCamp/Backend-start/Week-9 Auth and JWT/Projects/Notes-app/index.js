@@ -13,7 +13,7 @@ app.post("/notes" , (req , res)=>{
      res.json({
         message: "Done!",
      })
-})
+}) 
 
 //GET - get all notes 
 app.get("/notes", (req, res)=>{

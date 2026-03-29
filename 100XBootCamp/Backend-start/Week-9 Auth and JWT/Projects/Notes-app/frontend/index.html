@@ -52,18 +52,15 @@
             console.log(response.data.notes);
 
             document.querySelector('.notes').innerHTML="";
-
             const notes = response.data.notes;
-
-            for(let i=0; i<notes.length; i++){
+             for(let i=0; i<notes.length; i++){
                 const noteNote = notes[i];
-                const noteNOTES = document.createElement("div");
-                noteNOTES.innerHTML=noteNote;
+                 const noteNOTES = document.createElement("div");
+                  noteNOTES.innerHTML=noteNote;
 
-                noteNOTES.setAttribute("style","border:2px solid white; width:300px; margin-bottom:7px; padding: 10px;")
-                document.querySelector('.notes').appendChild(noteNOTES);
-                
-            }
+              noteNOTES.setAttribute("style","border:2px solid white; width:300px; margin-bottom:7px; padding: 10px;")
+              document.querySelector('.notes').appendChild(noteNOTES);  
+              }
             };
             getTodos();
         </script>
