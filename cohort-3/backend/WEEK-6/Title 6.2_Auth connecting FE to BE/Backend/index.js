@@ -1,17 +1,20 @@
+const path = require('path')
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const app = express();
+
 const JWT_Secret = "randomeluytyopeshitoutofnothingnsdfok";
 app.use(express.json());
 
 const users = [];
 app.get("/", (req, res) => {
-    res.json({
-        message: "You're on right place",
-    })
+    res.sendFile(path.join(__dirname , "../frontend/index.html"));
 })
-
-app.post("/signup", (req, res) => {
+function logger(req, res, next) {
+    console.log(req.method + " request come");
+    next();
+}
+app.post("/signup",logger, (req, res) => {
     // console.group("hiii there, this is signup user value/details");
     let id = 0;
     const username = req.body.username;
@@ -26,9 +29,10 @@ app.post("/signup", (req, res) => {
         message: "You are signed up",
     })
     console.log(users)
+    
 });
 
-app.post("/signin", (req, res) => {
+app.post("/signin",logger, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -55,19 +59,33 @@ app.post("/signin", (req, res) => {
     }
 })
 
-app.get("/me", (req, res) => {
+function auth(req, res, next) {
     const token = req.headers.token;
-    const decodedtoken = jwt.verify(token, JWT_Secret);
-    const username = decodedtoken.username;
+    const decodedData = jwt.verify(token, JWT_Secret);
+     
+     if(decodedData.username){
+        //how to pass data to the next function , this is done as
+        req.username = decodedData.username;
+        next();
+     }else{
+        res.json({
+            message: "You're not logged in"
+        })
+     }
+}
+
+
+ 
+app.get("/me",logger,auth, (req, res) => {
 
     const foundUser = users.find((user) => {
-        if (username == user.username) {
+        if (req.username == user.username) {
             return true;
         } else {
             return false;
         }
 
-    })
+    }) 
     if (foundUser) {
         res.json({
             userName: foundUser.username,
@@ -79,4 +97,4 @@ app.get("/me", (req, res) => {
         })
     }
 })
-app.listen(3011);
+app.listen(3001);
