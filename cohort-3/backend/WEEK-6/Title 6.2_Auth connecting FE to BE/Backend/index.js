@@ -9,7 +9,7 @@ app.use(express.json());
 const users = [];
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname , "../frontend/index.html"));
-})
+}) 
 function logger(req, res, next) {
     console.log(req.method + " request come");
     next();
