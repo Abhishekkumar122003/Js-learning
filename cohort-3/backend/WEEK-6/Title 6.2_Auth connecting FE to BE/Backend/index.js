@@ -13,7 +13,8 @@ app.get("/", (req, res) => {
 function logger(req, res, next) {
     console.log(req.method + " request come");
     next();
-}
+} 
+
 app.post("/signup",logger, (req, res) => {
     // console.group("hiii there, this is signup user value/details");
     let id = 0;
@@ -21,7 +22,7 @@ app.post("/signup",logger, (req, res) => {
     const password = req.body.password;
     console.log("this is password", password);
     users.push({
-        id: id,
+        id: ++id,
         username: username,
         password: password
     })
@@ -36,14 +37,21 @@ app.post("/signin",logger, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    const findUser = users.find((user) => {
-        if (username == user.username && password == user.password) {
-            return true;
-        } else {
-            return false;
-        }
+    //long way to find user
+    // const findUser = users.find((user) => {
+    //     if (username === user.username && password === user.password) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
 
-    });
+    // });
+    //much cleaner way to fund user
+    const findUser=users.find((user)=>{
+       return (
+                 username===username && password === password            
+      )
+    })
     console.log(findUser, "hi this is triger")
     if (findUser) {
         const token = jwt.sign({
@@ -78,6 +86,7 @@ function auth(req, res, next) {
  
 app.get("/me",logger,auth, (req, res) => {
 
+    
     const foundUser = users.find((user) => {
         if (req.username == user.username) {
             return true;

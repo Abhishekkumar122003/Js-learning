@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input class="username" type="text" placeholder="enter the username">
+        <input class="password" type="text" placeholder="enter the password">
+        <button onclick="signup()">Sign Up</button>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"></script>
+<script >
+    async function signup(){
+        const username = document.querySelector('.username').value
+        const password = document.querySelector('.password').value
+        const response = await axios.post("http://localhost:3000/signup" , {
+            username ,password
+        })
+        window.location = '/signin'
+    }
+</script>
+</html>
