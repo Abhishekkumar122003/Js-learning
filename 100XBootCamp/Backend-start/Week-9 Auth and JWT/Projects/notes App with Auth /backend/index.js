@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const JWT_Secret = "sjvbdfiwegbfjsontruigreiwthuoueyou";
 const app = express();
 app.use(express.json());
+const { authMiddleware } = require("./Middleware")
 
 const path = require('path');
 
@@ -47,25 +48,9 @@ app.post("/signin", (req, res) => {
         })
     }
 });
-//POST - Create a note
-app.post("/notes", (req, res) => {
-    const token = req.headers.token;
-    if (!token) {
-        res.status(403).send({
-            message: "You're not logged in"
-        })
-        return;
-    }
-
-    const decoded = jwt.verify(token, JWT_Secret);
-
-    const username = decoded.username;
-    if (!username) {
-        res.status(403).json({
-            message: "Malformed token "
-        })
-        return;
-    }
+//POST - Create a note --  AUTHENTICATED ENDPOINT
+app.post("/notes", authMiddleware , (req, res) => {
+    const username = req.username
     const note = req.body.note;
     notes.push({ username, note });
     res.json({
@@ -74,26 +59,10 @@ app.post("/notes", (req, res) => {
 })
 
 //GET - get all notes 
-app.get("/notes", (req, res) => {
-    const token = req.headers.token;
-    if (!token) {
-        res.status(403).send({
-            message: "You're not logged in"
-        })
-        return;
-    }
-
-    const decoded = jwt.verify(token, JWT_Secret);
- 
-    const username = decoded.username;
-    if (!username) {
-        res.status(403).json({
-            message: "Malformed token "
-        })
-        return;
-    }
-
+app.get("/notes", authMiddleware , (req, res) => {
+    const username = req.username
     const UserNotes = notes.filter(note=>note.username === username)
+   
     res.json({
         notes: UserNotes
     })
