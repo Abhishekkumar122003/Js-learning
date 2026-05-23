@@ -3,6 +3,8 @@ const app = express();
 const {authMiddleware} = require('./middleware')
 const jwt = require('jsonwebtoken');
 const JWT_Secret = "idsodntkonfo0ewnfoiwewathwhtatidioowhatrieirti";
+const  {todoModel , userModel} = require("./models");
+const { default: mongoose } = require("mongoose");
 
 app.use(express.json());
 let USERS =[];
@@ -10,24 +12,33 @@ let TODOS = [];
 // define all the route 
 let CURRENT_USER_ID = 1;
 let CURRENT_TODO_ID = 1;
-app.post("/signup" , (req, res )=>{
+app.post("/signup" , async (req, res )=>{
     const username = req.body.username;
     const password = req.body.password;
 
-    const existingUser = USERS.find(u => u.username===username);
+    // const existingUser = USERS.find(u => u.username===username); // abb kuky mujhe mongoose ata hai to use jodte hai
+     const existingUser = await userModel.findOne({
+        username:username,
+        password:password
+    });
     if(existingUser){
         res.status(403).json({
             message: "user with this name alredy exist"
         })
         return
     }
-    USERS.push({
+    // USERS.push({
+    //     username:username,
+    //     password:password,         // let push this data into actual database
+    //     userid: CURRENT_USER_ID++  
+    // })
+
+    const newUser = await  userModel.create({
         username:username,
-        password:password,
-        userid: CURRENT_USER_ID++  
-    })
+        password:password
+    });
     res.json({
-        id:CURRENT_USER_ID-1
+        id:newUser._id
     })
 console.log(USERS)
 
