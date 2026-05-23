@@ -20,5 +20,5 @@ const userModel = mongoose.model( "Users" , UserSchema );
 const todoModel = mongoose.model (  "todos" , TodoSchema );
 module.exports = {
     userModel:userModel,
-    todoModel: todoModel
+    todoModel: todoModel 
 }
