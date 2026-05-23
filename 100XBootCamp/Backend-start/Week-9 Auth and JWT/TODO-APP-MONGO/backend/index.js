@@ -7,11 +7,13 @@ const  {todoModel , userModel} = require("./models");
 const { default: mongoose } = require("mongoose");
 
 app.use(express.json());
-let USERS =[];
-let TODOS = []; 
+// let USERS =[];
+// let TODOS = []; 
+// let CURRENT_USER_ID = 1;
+// let CURRENT_TODO_ID = 1;
+
 // define all the route 
-let CURRENT_USER_ID = 1;
-let CURRENT_TODO_ID = 1;
+
 app.post("/signup" , async (req, res )=>{
     const username = req.body.username;
     const password = req.body.password;
