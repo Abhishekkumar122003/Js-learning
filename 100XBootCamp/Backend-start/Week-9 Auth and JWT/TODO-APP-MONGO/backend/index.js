@@ -42,23 +42,28 @@ app.post("/signup" , async (req, res )=>{
     res.json({
         id:newUser._id
     })
-console.log(USERS)
+// console.log(USERS)
 
 });
-app.post("/signin" , (req, res )=>{ 
-        console.log(req.body);
+app.post("/signin" , async (req, res )=>{ 
+        // console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username , password)
-    const userexist = USERS.find(u => u.username === username && u.password === password);
+    // console.log(username , password)
+    // const userexist = USERS.find(u => u.username === username && u.password === password);
+    const userexist = await userModel.findOne({
+        username:username,
+        password:password
+    }) 
     if(!userexist){
         res.status(411).json({
             message:"incorrect password or username"
         })
         return
     }
+    // 6a12e60ab4ae5f17a5392692
     const token = jwt.sign({
-        userid:userexist.userid
+        userid:userexist._id
          }, JWT_Secret);
 
     res.json({
@@ -67,16 +72,21 @@ app.post("/signin" , (req, res )=>{
     })
 });
 
-app.post("/todos", authMiddleware ,(req, res )=>{
+app.post("/todos", authMiddleware ,async (req, res )=>{
     const userid = req.userid;
     const description = req.body.description;
     const title = req.body.title;
-    TODOS.push({
-        id:CURRENT_TODO_ID++,
+    // TODOS.push({
+    //     id:CURRENT_TODO_ID++,
+    //     description:description,
+    //     userid:userid,
+    //     title:title
+    // })
+    await todoModel.create({
         description:description,
-        userid:userid,
-        title:title
-    })
+        userId:userid,
+        title:title,
+     })
     res.json({
         message:"Todo made"
     })
