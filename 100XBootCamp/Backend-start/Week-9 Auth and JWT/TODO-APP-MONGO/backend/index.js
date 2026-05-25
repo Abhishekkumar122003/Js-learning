@@ -92,14 +92,29 @@ app.post("/todos", authMiddleware ,async (req, res )=>{
     })
 });
 
-app.delete("/todo/:todoId", authMiddleware, (req, res )=>{
-    const userid = req.userid;
-    const todoId = parseInt(req.params.todoId);
-    const doesUserOwnTodo = TODOS.find(t => t.userid === userid && t.id===todoId);
-    if(doesUserOwnTodo){
-        TODOS = TODOS.filter(t=>t.id===todoId);
+app.delete("/todo/:todoId", authMiddleware,async (req, res )=>{
+    const userId = req.userid;
+    const todoId = req.params.todoId;
+    // const doesUserOwnTodo = TODOS.find(t => t.userid === userid && t.id===todoId);
+    // if(doesUserOwnTodo){
+    //     TODOS = TODOS.filter(t=>t.id===todoId);
+    //     res.json({
+    //         message: "todo is deleted successfully"
+    //     })
+    // }else{
+    //     res.status(402).json({
+    //         message:"Either todo doesn't exist or this is not your's todo"
+    //     })
+    // }
+    let doesTodoExist = await todoModel.findOne({
+        _id:todoId , userId:userId
+    })
+    if(doesTodoExist){
+        doesTodoExist = await todoModel.deleteOne({
+            _id:todoId
+        })
         res.json({
-            message: "todo is deleted successfully"
+            message:" the todo with the given id is deleted successefully"
         })
     }else{
         res.status(402).json({
@@ -107,18 +122,30 @@ app.delete("/todo/:todoId", authMiddleware, (req, res )=>{
         })
     }
 })
-app.get("/todos",authMiddleware, (req, res)=>{
-    const userid = req.userid;
-    const userTodos = TODOS.filter(t=> t.userid === userid);
-    if(userTodos){
-        res.json({
-            todo:userTodos
-        })
-    }else{
-        res.status(405).json({
-            message:"you enter incorrect userid"
-        })
-    }
+app.get("/todos",authMiddleware, async (req, res)=>{
+    const userId = req.userid;
+    const USERSTODOS = await todoModel.find({
+        userId:userId
+})
+if(USERSTODOS){
+    res.json({
+        todos:USERSTODOS
+    })
+}else{
+    res.status(415).json({
+        message:"User's currently don't have any todos"
+    })
+}
+    // const userTodos = TODOS.filter(t=> t.userid === userid);
+    // if(userTodos){
+    //     res.json({
+    //         todo:userTodos
+    //     })
+    // }else{
+    //     res.status(405).json({
+    //         message:"you enter incorrect userid"
+    //     })
+    // }
 });
 
 app.listen(3001)
