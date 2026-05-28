@@ -9,6 +9,7 @@
     <div>
         <input class="username" type="text" placeholder="enter the username">
         <input class="password" type="text" placeholder="enter the password">
+        <input class="email" type="email" placeholder="enter your email" >
         <button onclick="signup()">Sign Up</button>
     </div>
 </body>
@@ -17,8 +18,9 @@
     async function signup(){
         const username = document.querySelector('.username').value
         const password = document.querySelector('.password').value
+        const email = document.querySelector('.email').value
         const response = await axios.post("http://localhost:3000/signup" , {
-            username ,password
+            username ,password , email
         })
         window.location = '/signin'
     }

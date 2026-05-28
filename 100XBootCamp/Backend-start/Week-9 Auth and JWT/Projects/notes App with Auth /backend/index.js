@@ -5,38 +5,45 @@ const app = express();
 app.use(express.json());
 const { authMiddleware } = require("./Middleware")
 
+//using Postgres SQL DataBase 
+const {  Pool } = require('pg');
+const pool = new Pool({
+    connectionString: "postgresql://neondb_owner:npg_g93MKjsTiebw@ep-cold-shape-apdf3mjm-pooler.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+})
+
+
 const path = require('path');
+const { convertProcessSignalToExitCode } = require('util');
 
 const notes = []; //This is bad -- eventually we'll learn about databases { mogodb, postgres, mysql}
 const users = [];
 
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const userExits = users.find(user => user.username === username);
-    if (userExits) {
-        return res.status(403).json({
-            message: "user with this id already exits"
-        })
-    }
-    users.push({
-        username: username, password: password
-        // sort form if key and value are same we can write=> username , password 
-    })
+    const email = req.body.email;
+    // const response = await pool.query(`INSERT INTO users (username , email , password) VALUES ('${username}', '${email}' , '${password}' ) RETURNING id `)
+    // Better way to write the query to protect from SQL injection
+    const response = await pool.query(`INSERT INTO users (username , email , password) VALUES ($1 , $2 , $3) RETURNING id ` , [ username , email , password ]) // this is templet form to pass the argument to the postgres
+     
+    console.log(response)
     res.json({
-        message: "you are logged in",
+        message: "you are signup done",
+        id : response.rows[0].id
     })
 
 })
 
-app.post("/signin", (req, res) => {
-    const username = req.body.username;
+app.post("/signin", async (req, res) => {
+    const email = req.body.email;
     const password = req.body.password;
-
-    const userExits = users.find(user => user.username === username && user.password === password);
+console.log(`SELECT * FROM users  WHERE email='${email}' AND password='${password}'  `)
+    const response = await pool.query(`SELECT * FROM users  WHERE email='${email}' AND password='${password}'  `)
+    const userExits = response.rows[0];
     if (userExits) {
         const token = jwt.sign({
-            username: username
+            password: password,
+            id: response.rows[0] 
         }, JWT_Secret)
 
         res.json({
