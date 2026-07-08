@@ -1,7 +1,7 @@
-// password - A49GeWjqD1MZkHHX
+const connection_string = require("./creadential")
 const mongoose = require("mongoose");
 // connect to main MongoDB database 
-mongoose.connect("")
+mongoose.connect(connection_string);
 
 // design mongoose Schema and model object
 
