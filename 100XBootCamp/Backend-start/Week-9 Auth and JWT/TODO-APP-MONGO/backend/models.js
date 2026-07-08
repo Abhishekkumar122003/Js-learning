@@ -1,7 +1,7 @@
 // password - A49GeWjqD1MZkHHX
 const mongoose = require("mongoose");
 // connect to main MongoDB database 
-mongoose.connect("mongodb+srv://xlrx7841_db_user:A49GeWjqD1MZkHHX@cluster0.2ckkjz6.mongodb.net/todo")
+mongoose.connect("")
 
 // design mongoose Schema and model object
 
